@@ -6,7 +6,7 @@ EXPOSE 9000
 
 RUN [ "cross-build-start" ]
 
-ADD https://github.com/midaug/rpi-leanote/raw/master/leanote-linux-arm-v2.6.1.bin.tar.gz /usr/local/leanote.tar.gz
+ADD https://raw.githubusercontent.com/midaug/rpi-leanote/master/leanote-linux-arm-v2.6.1.bin.tar.gz /usr/local/leanote.tar.gz
 
 RUN tar -xzvf /usr/local/leanote.tar.gz -C /usr/local && \
     rm -f /usr/local/leanote.tar.gz && \
