@@ -2,9 +2,11 @@ FROM resin/rpi-golang
 
 LABEL maintainer="blog.midaug.win"
 
-ENV LEANOTE_VERSION 2.6.1
+EXPOSE 9000
 
-ADD https://gitee.com/midaug/files/raw/master/leanote-linux-arm-v${LEANOTE_VERSION}.bin.tar.gz /usr/local/leanote.tar.gz
+RUN [ "cross-build-start" ]
+
+ADD https://github.com/midaug/rpi-leanote/raw/master/leanote-linux-arm-v2.6.1.bin.tar.gz /usr/local/leanote.tar.gz
 
 RUN tar -xzvf /usr/local/leanote.tar.gz -C /usr/local && \
     rm -f /usr/local/leanote.tar.gz && \
@@ -18,8 +20,9 @@ RUN hash=$(< /dev/urandom tr -dc A-Za-z0-9 | head -c${1:-64};echo;); \
     sed -i "s/db.host=.*$/db.host=mongodb /" /usr/local/leanote/conf/app.conf; \
     sed -i "s/site.url=.*$/site.url=\${SITE_URL} /" /usr/local/leanote/conf/app.conf; 
 
-VOLUME /data
+RUN [ "cross-build-end" ]
 
-EXPOSE 9000
+VOLUME ["/data"]
+
 WORKDIR  /usr/local/leanote/bin
 ENTRYPOINT ["sh", "run.sh"]
