@@ -1,4 +1,4 @@
-FROM resin/rpi-golang
+FROM resin/armhf-alpine:latest
 
 LABEL maintainer="blog.midaug.win"
 
